@@ -1,0 +1,89 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Music Player</title>
+<style>
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif; background:#121212; color:white;}
+  header{background:#1C1C1E;padding:15px;text-align:center;font-size:24px;font-weight:bold;border-bottom-left-radius:20px;border-bottom-right-radius:20px;}
+  .playlist{display:flex;flex-direction:column;padding:10px;gap:15px;}
+  .song{display:flex;align-items:center;gap:15px;background:#1C1C1E;padding:10px;border-radius:15px;cursor:pointer;}
+  .song img{width:60px;height:60px;border-radius:15px;object-fit:cover;}
+  .song-details{flex-grow:1;}
+  .song-details h3{margin:0;font-size:16px;}
+  .song-details p{margin:0;font-size:12px;color:#aaa;}
+  .controls{display:flex;justify-content:center;gap:30px;padding:15px;position:fixed;bottom:0;width:100%;background:#1C1C1E;border-top-left-radius:20px;border-top-right-radius:20px;}
+  .controls button{background:#FF2D55;border:none;color:white;padding:12px 18px;font-size:16px;border-radius:50%;cursor:pointer;}
+  audio{display:none;}
+</style>
+</head>
+<body>
+<header>My Music</header>
+<div class="playlist">
+  <div class="song" onclick="playSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3')">
+    <img src="https://via.placeholder.com/100/FF2D55/FFFFFF?text=1" alt="Cover">
+    <div class="song-details"><h3>Song 1</h3><p>Artist 1</p></div>
+  </div>
+  <div class="song" onclick="playSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3')">
+    <img src="https://via.placeholder.com/100/FF2D55/FFFFFF?text=2" alt="Cover">
+    <div class="song-details"><h3>Song 2</h3><p>Artist 2</p></div>
+  </div>
+  <div class="song" onclick="playSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3')">
+    <img src="https://via.placeholder.com/100/FF2D55/FFFFFF?text=3" alt="Cover">
+    <div class="song-details"><h3>Song 3</h3><p>Artist 3</p></div>
+  </div>
+  <div class="song" onclick="playSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3')">
+    <img src="https://via.placeholder.com/100/FF2D55/FFFFFF?text=4" alt="Cover">
+    <div class="song-details"><h3>Song 4</h3><p>Artist 4</p></div>
+  </div>
+  <div class="song" onclick="playSong('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3')">
+    <img src="https://via.placeholder.com/100/FF2D55/FFFFFF?text=5" alt="Cover">
+    <div class="song-details"><h3>Song 5</h3><p>Artist 5</p></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="prevSong()">⏮</button>
+  <button onclick="togglePlay()">▶️</button>
+  <button onclick="nextSong()">⏭</button>
+</div>
+
+<audio id="audioPlayer"></audio>
+
+<script>
+  const playlist=[
+    'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+    'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+    'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+    'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+    'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3'
+  ];
+  let currentIndex=0;
+  let audio=document.getElementById('audioPlayer');
+
+  function playSong(file){
+    currentIndex=playlist.indexOf(file);
+    audio.src=file;
+    audio.play();
+  }
+
+  function togglePlay(){
+    if(audio.paused) audio.play(); else audio.pause();
+  }
+
+  function prevSong(){
+    currentIndex=(currentIndex-1+playlist.length)%playlist.length;
+    playSong(playlist[currentIndex]);
+  }
+
+  function nextSong(){
+    currentIndex=(currentIndex+1)%playlist.length;
+    playSong(playlist[currentIndex]);
+  }
+</script>
+
+</body>
+</html>
